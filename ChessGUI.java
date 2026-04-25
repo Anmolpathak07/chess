@@ -10,8 +10,8 @@ public class ChessGUI extends JFrame {
     boolean whiteTurn = true;
 
     public ChessGUI() {
-        setTitle("Complete Chess Game");
-        setSize(600, 600);
+        setTitle("Chess Game - Piece Names");
+        setSize(700, 700);
         setLayout(new GridLayout(8, 8));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -43,12 +43,13 @@ public class ChessGUI extends JFrame {
             for (int j = 0; j < 8; j++) {
 
                 JButton btn = new JButton();
-                btn.setFont(new Font("Arial", Font.BOLD, 24));
+                btn.setFont(new Font("Arial", Font.BOLD, 12));
+                btn.setMargin(new Insets(0,0,0,0));
 
                 if ((i + j) % 2 == 0)
                     btn.setBackground(Color.WHITE);
                 else
-                    btn.setBackground(Color.GRAY);
+                    btn.setBackground(Color.LIGHT_GRAY);
 
                 int r = i, c = j;
                 btn.addActionListener(e -> handleClick(r, c));
@@ -144,7 +145,7 @@ public class ChessGUI extends JFrame {
         return !inCheck;
     }
 
-    // ================= PIECE RULES =================
+    // ===== PIECE RULES =====
 
     boolean validPawn(int r1, int c1, int r2, int c2, String p) {
         int dir = p.equals(p.toUpperCase()) ? -1 : 1;
@@ -199,7 +200,7 @@ public class ChessGUI extends JFrame {
         return true;
     }
 
-    // ================= CHECK LOGIC =================
+    // ===== CHECK LOGIC =====
 
     int[] findKing(boolean white) {
         String king = white ? "K" : "k";
@@ -231,9 +232,7 @@ public class ChessGUI extends JFrame {
         return false;
     }
 
-    // basic move (without self-check logic)
     boolean isValidMoveBasic(int r1, int c1, int r2, int c2) {
-
         String piece = board[r1][c1];
         String target = board[r2][c2];
 
@@ -305,7 +304,7 @@ public class ChessGUI extends JFrame {
         return true;
     }
 
-    // ================= UI =================
+    // ===== UI =====
 
     void movePiece(int r1, int c1, int r2, int c2) {
         board[r2][c2] = board[r1][c1];
@@ -317,26 +316,29 @@ public class ChessGUI extends JFrame {
             for (int j = 0; j < 8; j++) {
 
                 String piece = board[i][j];
-                squares[i][j].setText(piece.equals(".") ? "" : getUnicode(piece));
+                squares[i][j].setText(piece.equals(".") ? "" : getPieceName(piece));
 
                 if ((i + j) % 2 == 0)
                     squares[i][j].setBackground(Color.WHITE);
                 else
-                    squares[i][j].setBackground(Color.GRAY);
+                    squares[i][j].setBackground(Color.LIGHT_GRAY);
             }
         }
     }
 
-    String getUnicode(String p) {
-        switch (p) {
-            case "r": return "♜"; case "n": return "♞";
-            case "b": return "♝"; case "q": return "♛";
-            case "k": return "♚"; case "p": return "♟";
-            case "R": return "♖"; case "N": return "♘";
-            case "B": return "♗"; case "Q": return "♕";
-            case "K": return "♔"; case "P": return "♙";
+    String getPieceName(String p) {
+        String name = "";
+
+        switch (p.toLowerCase()) {
+            case "p": name = "Pawn"; break;
+            case "r": name = "Rook"; break;
+            case "n": name = "Knight"; break;
+            case "b": name = "Bishop"; break;
+            case "q": name = "Queen"; break;
+            case "k": name = "King"; break;
         }
-        return "";
+
+        return p.equals(p.toUpperCase()) ? "W-" + name : "B-" + name;
     }
 
     public static void main(String[] args) {
