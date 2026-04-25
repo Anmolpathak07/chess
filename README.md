@@ -114,3 +114,7 @@ java ChessGUI
 ## 📄 License
 
 This project is for **educational purposes only**.
+EXAMPLE 
+<img width="864" height="865" alt="Screenshot 2026-04-25 151341" src="https://github.com/user-attachments/assets/918a67a2-11b5-4dd1-83c9-1006ded8be11" />
+<img width="853" height="863" alt="Screenshot 2026-04-25 151450" src="https://github.com/user-attachments/assets/c7851c0c-94aa-4104-9670-dbed78d0f435" />
+
